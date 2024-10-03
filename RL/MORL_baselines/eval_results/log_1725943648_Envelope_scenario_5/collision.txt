@@ -1,0 +1,3 @@
+col_comp_num num: 0
+0 both ttc average: None
+0 both comp average: None

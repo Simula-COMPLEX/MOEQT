@@ -1,0 +1,3 @@
+col_comp_num num: 15
+15 both ttc average: 0.0
+15 both comp average: 28.248291514965658

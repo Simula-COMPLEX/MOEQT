@@ -1,0 +1,3 @@
+col_comp_num num: 3
+3 both ttc average: 1.721723412880335
+3 both comp average: 70.97607992951573
