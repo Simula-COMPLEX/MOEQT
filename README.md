@@ -77,7 +77,7 @@ cd RL/MORL_baselines
 python evaluation.py
 ```
 
-## Model, Data, and Results
+## Models, Data, and Results
 **_RL/MORL_baselines/train_results_** contains trained models, training process data, and partial results.
 
 **_RL/MORL_baselines/eval_results_** contains evaluation process data and partial results.
