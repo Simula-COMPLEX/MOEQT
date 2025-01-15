@@ -1,3 +1,7 @@
+col num: 0
+0 col_num_ttc average: None
+comp num: 2
+2 comp_num_comp average: 94.48063618925143
 col_comp_num num: 0
 0 both ttc average: None
 0 both comp average: None

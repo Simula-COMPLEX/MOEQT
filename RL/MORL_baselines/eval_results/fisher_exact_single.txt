@@ -1,0 +1,48 @@
+scenario_1
+col num
+fisher_exact 1.0726875460951054e-08 <0.01 inf
+comp num
+fisher_exact 3.282638304775266e-09 <0.01 6.147058823529412
+col_comp_num num
+fisher_exact 7.264618319942104e-06 <0.01 inf
+
+scenario_2
+col num
+fisher_exact 3.463411871300009e-05 <0.01 inf
+comp num
+fisher_exact 0.00020520664617535334 <0.01 10.75609756097561
+col_comp_num num
+fisher_exact 3.463411871300009e-05 <0.01 inf
+
+scenario_3
+col num
+fisher_exact 0.49748743718588606 >=0.05 inf
+comp num
+fisher_exact 0.002990105854479539 <0.01 2.5555555555555554
+col_comp_num num
+fisher_exact 0.49748743718588606 >=0.05 inf
+
+scenario_4
+col num
+fisher_exact 3.914636460719405e-12 <0.01 inf
+comp num
+fisher_exact 3.5881621970218876e-05 <0.01 0.04601571268237935
+col_comp_num num
+fisher_exact 9.757377446866926e-12 <0.01 inf
+
+scenario_5
+col num
+fisher_exact 1.0 >=0.05 nan
+comp num
+fisher_exact 1.0 >=0.05 nan
+col_comp_num num
+fisher_exact 1.0 >=0.05 nan
+
+scenario_6
+col num
+fisher_exact 1.0 >=0.05 inf
+comp num
+fisher_exact 2.5770265099776136e-06 <0.01 4.333333333333333
+col_comp_num num
+fisher_exact 1.0 >=0.05 inf
+

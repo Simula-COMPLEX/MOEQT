@@ -1,3 +1,7 @@
+col num: 15
+15 col_num_ttc average: 0.0
+comp num: 18
+18 comp_num_comp average: 27.941660192146298
 col_comp_num num: 15
 15 both ttc average: 0.0
 15 both comp average: 28.248291514965658

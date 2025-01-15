@@ -1,3 +1,7 @@
+col num: 1
+1 col_num_ttc average: 7.612031992939148
+comp num: 55
+55 comp_num_comp average: 64.72782330323749
 col_comp_num num: 1
 1 both ttc average: 7.612031992939148
 1 both comp average: 87.56695864480113

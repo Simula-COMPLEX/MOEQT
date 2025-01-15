@@ -30,6 +30,8 @@ def converge_random(data, file_name):
     episode = episode_start
     ttc, comp, rew_ttc, rew_comp, collision = [], [], [], [], []
     ttc_episode, comp_episode, reward_ttc, reward_comp, coll = [], [], [], [], []
+    col_num, col_num_ttc = 0, []
+    comp_num, comp_num_comp = 0, []
     col_comp_num = 0
     both_ttc, both_comp = [], []
     for i in range(data[data['episode'] == episode_start].index.min(), data[data['episode'] == episode_end].index.max() + 2):
@@ -37,17 +39,27 @@ def converge_random(data, file_name):
             ttc.append(np.array(ttc_episode).mean())
             comp.append(np.array(comp_episode).mean())
             if data['episode'][i - 1] >= episode_end - 99:
+                if "scenario_5" in file_name:
+                    if 90 - sum(comp_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(comp_episode))
+                else:
+                    if 100 - sum(comp_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(comp_episode))
                 if data['collision'][i - 1] == True:
                     if "scenario_5" in file_name:
-                        if abs(sum(comp_episode) - 90) > 0.1:
+                        if 90 - sum(comp_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(ttc_episode).mean())
                             both_comp.append(sum(comp_episode))
                     else:
-                        if abs(sum(comp_episode) - 100) > 0.1:
+                        if 100 - sum(comp_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(ttc_episode).mean())
                             both_comp.append(sum(comp_episode))
+                    col_num += 1
+                    col_num_ttc.append(np.array(ttc_episode).mean())
             rew_ttc.append(np.array(reward_ttc).mean())
             rew_comp.append(np.array(reward_comp).mean())
             collision.append(max(np.array(coll)))
@@ -125,6 +137,10 @@ def converge_random(data, file_name):
     plt.clf()
 
     with open(f'{folder_path}/{file_name}/collision.txt', 'w') as file:
+        file.write(f"col num: {col_num}\n")
+        file.write(f"{len(col_num_ttc)} col_num_ttc average: {None if col_num == 0 else sum(col_num_ttc) / len(col_num_ttc)}\n")
+        file.write(f"comp num: {comp_num}\n")
+        file.write(f"{len(comp_num_comp)} comp_num_comp average: {None if comp_num == 0 else sum(comp_num_comp) / len(comp_num_comp)}\n")
         file.write(f"col_comp_num num: {col_comp_num}\n")
         file.write(f"{len(both_ttc)} both ttc average: {None if col_comp_num == 0 else sum(both_ttc) / len(both_ttc)}\n")
         file.write(f"{len(both_comp)} both comp average: {None if col_comp_num == 0 else sum(both_comp) / len(both_comp)}\n")
@@ -136,6 +152,8 @@ def converge_deepcollision(data, file_name):
     episode = episode_start
     loss, ttc, comp, rew_ttc, rew_comp, rew_tol, collision = [], [], [], [], [], [], []
     loss_episode, ttc_episode, comp_episode, reward_ttc, reward_comp, reward_tol, coll = [], [], [], [], [], [], []
+    col_num, col_num_ttc = 0, []
+    comp_num, comp_num_comp = 0, []
     col_comp_num = 0
     both_ttc, both_comp = [], []
     for i in range(data[data['episode'] == episode_start].index.min(),
@@ -148,18 +166,27 @@ def converge_deepcollision(data, file_name):
             rew_comp.append(np.array(reward_comp).mean())
             rew_tol.append(np.array(reward_tol).mean())
             if data['episode'][i - 1] >= episode_end - 99:
-                action_list, action_episode = [], []
+                if "scenario_5" in file_name:
+                    if 90 - sum(comp_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(comp_episode))
+                else:
+                    if 100 - sum(comp_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(comp_episode))
                 if data['collision'][i - 1] == True:
                     if "scenario_5" in file_name:
-                        if abs(sum(comp_episode) - 90) > 0.1:
+                        if 90 - sum(comp_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(ttc_episode).mean())
                             both_comp.append(sum(comp_episode))
                     else:
-                        if abs(sum(comp_episode) - 100) > 0.1:
+                        if 100 - sum(comp_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(ttc_episode).mean())
                             both_comp.append(sum(comp_episode))
+                    col_num += 1
+                    col_num_ttc.append(np.array(ttc_episode).mean())
             collision.append(max(np.array(coll)))
             if len(data) == i:
                 break
@@ -257,6 +284,10 @@ def converge_deepcollision(data, file_name):
     plt.clf()
 
     with open(f'{folder_path}/{file_name}/collision.txt', 'w') as file:
+        file.write(f"col num: {col_num}\n")
+        file.write(f"{len(col_num_ttc)} col_num_ttc average: {None if col_num == 0 else sum(col_num_ttc) / len(col_num_ttc)}\n")
+        file.write(f"comp num: {comp_num}\n")
+        file.write(f"{len(comp_num_comp)} comp_num_comp average: {None if comp_num == 0 else sum(comp_num_comp) / len(comp_num_comp)}\n")
         file.write(f"col_comp_num num: {col_comp_num}\n")
         file.write(f"{len(both_ttc)} both ttc average: {None if col_comp_num == 0 else sum(both_ttc) / len(both_ttc)}\n")
         file.write(f"{len(both_comp)} both comp average: {None if col_comp_num == 0 else sum(both_comp) / len(both_comp)}\n")
@@ -276,6 +307,8 @@ def converge_envelope(data, file_name):
     episode = episode_start
     loss, obj_1, obj_2, rew_obj_1, rew_obj_2, rew_total, collision = [], [], [], [], [], [], []
     loss_episode, obj_1_episode, obj_2_episode, reward_obj_1, reward_obj_2, reward_total, coll = [], [], [], [], [], [], []
+    col_num, col_num_ttc = 0, []
+    comp_num, comp_num_comp = 0, []
     col_comp_num = 0
     both_ttc, both_comp = [], []
     for i in range(data[data['episode'] == episode_start].index.min(),
@@ -287,17 +320,27 @@ def converge_envelope(data, file_name):
             rew_obj_1.append(np.array(reward_obj_1).mean())
             rew_obj_2.append(np.array(reward_obj_2).mean())
             if data.columns[4] == 'completion' and data['episode'][i - 1] >= episode_end - 99:
+                if "scenario_5" in file_name:
+                    if 90 - sum(obj_2_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(obj_2_episode))
+                else:
+                    if 100 - sum(obj_2_episode) > 0.1:
+                        comp_num += 1
+                        comp_num_comp.append(sum(obj_2_episode))
                 if data['collision'][i - 1] == True:
                     if "scenario_5" in file_name:
-                        if abs(sum(obj_2_episode) - 90) > 0.1:
+                        if 90 - sum(obj_2_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(obj_1_episode).mean())
                             both_comp.append(sum(obj_2_episode))
                     else:
-                        if abs(sum(obj_2_episode) - 100) > 0.1:
+                        if 100 - sum(obj_2_episode) > 0.1:
                             col_comp_num += 1
                             both_ttc.append(np.array(obj_1_episode).mean())
                             both_comp.append(sum(obj_2_episode))
+                    col_num += 1
+                    col_num_ttc.append(np.array(obj_1_episode).mean())
             rew_total.append(data['reward_total'][i - 1] / data['step'][i - 1])
             collision.append(max(np.array(coll)))
             if len(data) == i:
@@ -404,6 +447,10 @@ def converge_envelope(data, file_name):
     plt.clf()
 
     with open(f'{folder_path}/{file_name}/collision.txt', 'w') as file:
+        file.write(f"col num: {col_num}\n")
+        file.write(f"{len(col_num_ttc)} col_num_ttc average: {None if col_num == 0 else sum(col_num_ttc) / len(col_num_ttc)}\n")
+        file.write(f"comp num: {comp_num}\n")
+        file.write(f"{len(comp_num_comp)} comp_num_comp average: {None if comp_num == 0 else sum(comp_num_comp) / len(comp_num_comp)}\n")
         file.write(f"col_comp_num num: {col_comp_num}\n")
         file.write(f"{len(both_ttc)} both ttc average: {None if col_comp_num == 0 else sum(both_ttc) / len(both_ttc)}\n")
         file.write(f"{len(both_comp)} both comp average: {None if col_comp_num == 0 else sum(both_comp) / len(both_comp)}\n")
@@ -428,44 +475,96 @@ def tensorboard_smoothing(x, smooth=0.99):
 
 def both_statistic():
     scenario_list = ['scenario_1', 'scenario_2', 'scenario_3', 'scenario_4', 'scenario_5', 'scenario_6']
+    violation_list = ['col num', 'comp num', 'col_comp_num num']
 
     with open(f'{folder_path}/fisher_exact.txt', 'w') as file:
         file.write("")
 
     for scenario in scenario_list:
-        random_violation = None
-        envelope_violation = None
-        for entry in os.scandir(folder_path):
-            if entry.is_dir() and 'Random' in entry.name and scenario in entry.name:
-                file_path = os.path.join(entry.path, 'collision.txt')
-                with open(file_path, 'r') as file:
-                    for line in file:
-                        match = re.search(r'col_comp_num num:\s*(\d+)', line)
-                        if match:
-                            random_violation = int(match.group(1))
-            if entry.is_dir() and 'Envelope' in entry.name and scenario in entry.name:
-                file_path = os.path.join(entry.path, 'collision.txt')
-                with open(file_path, 'r') as file:
-                    for line in file:
-                        match = re.search(r'col_comp_num num:\s*(\d+)', line)
-                        if match:
-                            envelope_violation = int(match.group(1))
-
-        print("envelope_violation", envelope_violation, "random_violation", random_violation, scenario, "scenario")
-        data = np.array([[envelope_violation, 100-envelope_violation], [random_violation, 100-random_violation]])
-        oddsratio, p_fisher = stats.fisher_exact(data)
-        if p_fisher < 0.01:
-            p_fisher_sign = '<0.01'
-        elif p_fisher < 0.05:
-            p_fisher_sign = '<0.05'
-        else:
-            p_fisher_sign = '>=0.05'
-
         with open(f'{folder_path}/fisher_exact.txt', 'a') as file:
             file.write(f"{scenario}\n")
-            file.write(f"envelope_violation {envelope_violation}\n")
-            file.write(f"random_violation {random_violation}\n")
-            file.write(f"fisher_exact {p_fisher} {p_fisher_sign} {oddsratio}\n\n")
+        for violation in violation_list:
+            random_violation = None
+            envelope_violation = None
+            for entry in os.scandir(folder_path):
+                if entry.is_dir() and 'Random' in entry.name and scenario in entry.name:
+                    file_path = os.path.join(entry.path, 'collision.txt')
+                    with open(file_path, 'r') as file:
+                        for line in file:
+                            match = re.search(rf'{violation}:\s*(\d+)', line)
+                            if match:
+                                random_violation = int(match.group(1))
+                if entry.is_dir() and 'Envelope' in entry.name and scenario in entry.name:
+                    file_path = os.path.join(entry.path, 'collision.txt')
+                    with open(file_path, 'r') as file:
+                        for line in file:
+                            match = re.search(rf'{violation}:\s*(\d+)', line)
+                            if match:
+                                envelope_violation = int(match.group(1))
+
+            print("envelope_violation", envelope_violation, "random_violation", random_violation, scenario, "scenario")
+            data = np.array([[envelope_violation, 100-envelope_violation], [random_violation, 100-random_violation]])
+            oddsratio, p_fisher = stats.fisher_exact(data)
+            if p_fisher < 0.01:
+                p_fisher_sign = '<0.01'
+            elif p_fisher < 0.05:
+                p_fisher_sign = '<0.05'
+            else:
+                p_fisher_sign = '>=0.05'
+
+            with open(f'{folder_path}/fisher_exact.txt', 'a') as file:
+                file.write(f"{violation}\n")
+                file.write(f"fisher_exact {p_fisher} {p_fisher_sign} {oddsratio}\n")
+
+        with open(f'{folder_path}/fisher_exact.txt', 'a') as file:
+            file.write(f"\n")
+
+
+def both_statistic_single():
+    scenario_list = ['scenario_1', 'scenario_2', 'scenario_3', 'scenario_4', 'scenario_5', 'scenario_6']
+    violation_list = ['col num', 'comp num', 'col_comp_num num']
+
+    with open(f'{folder_path}/fisher_exact_single.txt', 'w') as file:
+        file.write("")
+
+    for scenario in scenario_list:
+        with open(f'{folder_path}/fisher_exact_single.txt', 'a') as file:
+            file.write(f"{scenario}\n")
+        for violation in violation_list:
+            single_violation = None
+            envelope_violation = None
+            for entry in os.scandir(folder_path):
+                if entry.is_dir() and 'Single' in entry.name and scenario in entry.name:
+                    file_path = os.path.join(entry.path, 'collision.txt')
+                    with open(file_path, 'r') as file:
+                        for line in file:
+                            match = re.search(rf'{violation}:\s*(\d+)', line)
+                            if match:
+                                single_violation = int(match.group(1))
+                if entry.is_dir() and 'Envelope' in entry.name and scenario in entry.name:
+                    file_path = os.path.join(entry.path, 'collision.txt')
+                    with open(file_path, 'r') as file:
+                        for line in file:
+                            match = re.search(rf'{violation}:\s*(\d+)', line)
+                            if match:
+                                envelope_violation = int(match.group(1))
+
+            print("envelope_violation", envelope_violation, "single_violation", single_violation, scenario, "scenario")
+            data = np.array([[envelope_violation, 100-envelope_violation], [single_violation, 100-single_violation]])
+            oddsratio, p_fisher = stats.fisher_exact(data)
+            if p_fisher < 0.01:
+                p_fisher_sign = '<0.01'
+            elif p_fisher < 0.05:
+                p_fisher_sign = '<0.05'
+            else:
+                p_fisher_sign = '>=0.05'
+
+            with open(f'{folder_path}/fisher_exact_single.txt', 'a') as file:
+                file.write(f"{violation}\n")
+                file.write(f"fisher_exact {p_fisher} {p_fisher_sign} {oddsratio}\n")
+
+        with open(f'{folder_path}/fisher_exact_single.txt', 'a') as file:
+            file.write(f"\n")
 
 
 def plot_3D():
@@ -565,4 +664,5 @@ if __name__ == '__main__':
             # converge_envelope(data, file_name.split('.csv')[0])
 
     # both_statistic()
+    # both_statistic_single()
     # plot_3D()

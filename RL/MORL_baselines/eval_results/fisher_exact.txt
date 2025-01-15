@@ -1,30 +1,48 @@
 scenario_1
-envelope_violation 17
-random_violation 1
+col num
+fisher_exact 7.076081338323648e-06 <0.01 10.777777777777779
+comp num
+fisher_exact 5.0227278274306794e-06 <0.01 3.9411764705882355
+col_comp_num num
 fisher_exact 7.475014369645437e-05 <0.01 20.27710843373494
 
 scenario_2
-envelope_violation 15
-random_violation 4
+col num
+fisher_exact 0.01398946498545024 <0.05 4.235294117647059
+comp num
+fisher_exact 0.8571693063705094 >=0.05 0.8780487804878049
+col_comp_num num
 fisher_exact 0.01398946498545024 <0.05 4.235294117647059
 
 scenario_3
-envelope_violation 2
-random_violation 6
+col num
+fisher_exact 0.2790433179426016 >=0.05 0.3197278911564626
+comp num
+fisher_exact 4.802869959632307e-13 <0.01 9.5
+col_comp_num num
 fisher_exact 0.2790433179426016 >=0.05 0.3197278911564626
 
 scenario_4
-envelope_violation 33
-random_violation 5
+col num
+fisher_exact 1.8985541233644817e-07 <0.01 9.787878787878787
+comp num
+fisher_exact 9.19906962890075e-14 <0.01 10.62962962962963
+col_comp_num num
 fisher_exact 4.020623189050787e-07 <0.01 9.35820895522388
 
 scenario_5
-envelope_violation 0
-random_violation 0
+col num
+fisher_exact 1.0 >=0.05 nan
+comp num
+fisher_exact 0.12124072137337907 >=0.05 0.0
+col_comp_num num
 fisher_exact 1.0 >=0.05 nan
 
 scenario_6
-envelope_violation 1
-random_violation 1
+col num
+fisher_exact 1.0 >=0.05 1.0
+comp num
+fisher_exact 0.0005601916953594961 <0.01 2.8518518518518516
+col_comp_num num
 fisher_exact 1.0 >=0.05 1.0
 
