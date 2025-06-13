@@ -295,8 +295,8 @@ class LeaderboardEvaluator(object):
         crash_message = ""
         entry_status = "Started"
 
-        timestamp = int(time.time())
-        self.checkpoint_file = 'simulation_result_{}.json'.format(timestamp)
+        # timestamp = int(time.time())
+        # self.checkpoint_file = 'simulation_result_{}.json'.format(timestamp)
 
         print("\n\033[1m========= Preparing {} (repetition {}) =========".format(config.name, config.repetition_index))
         print("> Setting up the agent\033[0m")
@@ -332,8 +332,7 @@ class LeaderboardEvaluator(object):
             crash_message = "Agent's sensors were invalid"
             entry_status = "Rejected"
 
-            self._register_statistics(config, '{}{}'.format(args.checkpoint_path, self.checkpoint_file), entry_status,
-                                      crash_message)
+            self._register_statistics(config, args.checkpoint, entry_status, crash_message)
             self._cleanup()
             sys.exit(-1)
 
@@ -345,8 +344,7 @@ class LeaderboardEvaluator(object):
 
             crash_message = "Agent couldn't be set up"
 
-            self._register_statistics(config, '{}{}'.format(args.checkpoint_path, self.checkpoint_file), entry_status,
-                                      crash_message)
+            self._register_statistics(config, args.checkpoint, entry_status, crash_message)
             self._cleanup()
             return
 
@@ -375,8 +373,7 @@ class LeaderboardEvaluator(object):
             crash_message = "Simulation crashed"
             entry_status = "Crashed"
 
-            self._register_statistics(config, '{}{}'.format(args.checkpoint_path, self.checkpoint_file), entry_status,
-                                      crash_message)
+            self._register_statistics(config, args.checkpoint, entry_status, crash_message)
 
             if args.record:
                 self.client.stop_recorder()
@@ -409,8 +406,7 @@ class LeaderboardEvaluator(object):
         try:
             print("\033[1m> Stopping the route\033[0m")
             self.manager.stop_scenario()
-            self._register_statistics(config, '{}{}'.format(args.checkpoint_path, self.checkpoint_file), entry_status,
-                                      crash_message)
+            self._register_statistics(config, args.checkpoint, entry_status, crash_message)
 
             if args.record:
                 self.client.stop_recorder()
