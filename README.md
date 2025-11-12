@@ -80,4 +80,4 @@ python evaluation.py
 ## Models, Data, and Results
 **_RL/MORL_baselines/train_results_** contains trained models, training process data, and partial results.
 
-**_RL/MORL_baselines/eval_results_** contains evaluation process data and partial results.
+**_RL/MORL_baselines/eval_results_** contains evaluation process data and partial results. Note that to save storage space, the executable models are not directly provided in this folder. You can manually copy the **.tar** pretrained model files from the **_RL/MORL_baselines/train_results_** folder into this directory and adjust the command parameters accordingly before running.
